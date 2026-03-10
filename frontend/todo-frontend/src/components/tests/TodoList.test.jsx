@@ -37,7 +37,6 @@ describe('TodoList', () => {
   it('renders todos', async () => {
     render(<TodoList />);
 
-    // Just check one task at a time — simplest possible pattern
     expect(await screen.findByDisplayValue('Task 1')).toBeInTheDocument();
     expect(await screen.findByText(/05 Jan 2027/)).toBeInTheDocument();
 
@@ -48,4 +47,5 @@ describe('TodoList', () => {
     expect(await screen.findByText(/18 Feb 2027/)).toBeInTheDocument();
   });
 });
+
 
