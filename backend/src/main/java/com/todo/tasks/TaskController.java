@@ -36,7 +36,6 @@ public class TaskController {
     this.repository = repository;
  }
 //GET /todos 
-//Postman URL: http://localhost:8080/todos and GET /todos?category={}
 @GetMapping 
 public ResponseEntity<List<Task>> retrieveTask(@RequestParam(value="category", required = false) Integer categId) {
 //List<Task> returns all tasks in 1 response
@@ -58,17 +57,6 @@ public ResponseEntity<Task> addTask(@Valid @RequestBody PostTasksDto postTasksDt
         Task createdTask = taskService.createTask(postTasksDto);
         return ResponseEntity.status(HttpStatus.CREATED).body(createdTask);
     }
-
-//GET /todos?category={id}
-//In a Spring Boot app, the controller should call the service, not the repository directly (best practice)
-
-// @GetMapping
-// public ResponseEntity<List<Task>> retrieveTaskCateg(@RequestParam(required = false) Integer categId) {
-// //List <Task> findByCategoryId(Integer categoryId); 
-//     List<Task> tasksCateg = taskService.getAllTasks(categId);
-//     return ResponseEntity.ok(tasksCateg);
-// }
-
 
 //DELETE /todos/:id
 @DeleteMapping("/{id}")
@@ -100,3 +88,4 @@ public ResponseEntity<Task> archiveTask(@PathVariable Integer id) {
         
     } 
 }
+
