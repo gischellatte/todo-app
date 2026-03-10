@@ -20,11 +20,9 @@ public class CategoryService {
     }
 
     public Category createCategory(Category category){
-        //pass the category objects from the controller
         return categoryRepository.save(category);
     }
     
-    //In the service, we should return the category object directly, or throw an exception if not found. ResponseEntity is returned in the controller
     public Category getById(Integer id){
         return categoryRepository.findById(id)
         .orElseThrow(()-> new IllegalArgumentException("Can't find the related category.")) ;
@@ -34,20 +32,6 @@ public class CategoryService {
         return this.categoryRepository.findAll();
     }
 
-//     In Spring Data JPA:
-
-// Repository write operations (save, delete, deleteById) require a transactional context.
-
-// By default, @Repository methods are transactional only if the method is called inside a transaction.
-
-// If your CategoryService.deleteCategory method does not have @Transactional, Spring may try to call deleteById outside a transaction → this error.
-// @Transactional tells Spring:
-
-// “Start a database transaction for this method.
-// All database changes inside this method are part of the same transaction.”
-
-// So now deleteByCategoryId and deleteById happen safely within one transaction, and the EntityManager is available.
-//If you combine findById + deleteById in one service method without @Transactional, Spring cannot guarantee a single transaction for both operations. That’s what causes your error.
     @Transactional
     public boolean deleteByCategory(Integer id) {
         if(!categoryRepository.existsById(id)){
@@ -67,3 +51,4 @@ public class CategoryService {
     }
 
 }
+
