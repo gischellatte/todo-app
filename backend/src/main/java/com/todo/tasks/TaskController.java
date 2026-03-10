@@ -38,8 +38,7 @@ public class TaskController {
 //GET /todos 
 @GetMapping 
 public ResponseEntity<List<Task>> retrieveTask(@RequestParam(value="category", required = false) Integer categId) {
-//List<Task> returns all tasks in 1 response
-//Task can only return 1 task
+
     List<Task> tasks = taskService.getAllTasks(categId);
     return ResponseEntity.ok(tasks);
 }
@@ -62,7 +61,7 @@ public ResponseEntity<Task> addTask(@Valid @RequestBody PostTasksDto postTasksDt
 @DeleteMapping("/{id}")
 public ResponseEntity<Task> archiveTask(@PathVariable Integer id) {
     boolean sentToArchive = taskService.archiveTask(id);
-    // a task is successfully archived
+
     if(sentToArchive){
         Task archivedTask = taskService.getTaskById(id);
         return ResponseEntity.ok(archivedTask);
@@ -88,4 +87,5 @@ public ResponseEntity<Task> archiveTask(@PathVariable Integer id) {
         
     } 
 }
+
 
