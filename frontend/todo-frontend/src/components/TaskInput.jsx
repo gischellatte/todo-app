@@ -5,7 +5,6 @@ import classes from '../styles/App.module.scss';
 function TaskInput({categories, addTask}) {
  
   const [taskName, setTaskName] = useState(""); 
-  //just in case: array is empty or not loaded yet (categories[0] is empty), it will safely fall back to ""
   const [category, setCategory] = useState(categories[0]||"");
   const [deadline, setDeadline] = useState("");
 
@@ -37,5 +36,6 @@ function TaskInput({categories, addTask}) {
 }
 
 export default TaskInput;
+
 
 
