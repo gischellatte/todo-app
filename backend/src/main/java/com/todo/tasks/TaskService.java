@@ -10,7 +10,6 @@ import com.todo.categories.CategoryRepository;
 import java.util.List;
 import java.util.Optional;
 
-
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -20,8 +19,6 @@ import org.springframework.stereotype.Service;
 @Service
 public class TaskService {
 
-    //Declaring dependencies to fetch, save, update, or delete tasks and categories from the database
-    //These dependencies represent access handlers (injected to the service class)
     private final TaskRepository taskRepository;
     private final CategoryRepository categoryRepository;
 
@@ -31,7 +28,7 @@ public class TaskService {
     }
 
     public List<Task> getAllTasks(Integer categoryId){
-        //Primitive int cant do !=null
+
         if(categoryId != null){
             return taskRepository.findByCategoryIdAndMakeArchivedFalse(categoryId);
         }
@@ -43,7 +40,6 @@ public class TaskService {
     }
 
     public boolean archiveTask(Integer taskId){
-        //Optional is a safety net in case your search returns a null. It's possible that your search returns a null. If you dont use Optional, you need to do a manual check
 
         Optional<Task> electiveTasks = taskRepository.findById(taskId);
         if (electiveTasks.isPresent()){
@@ -57,17 +53,14 @@ public class TaskService {
 
 
     public Task getTaskById(Integer id){
-        //findById(id) is automatically inherited from JpaRepository
-        //findById method returns an Optional<T> to safely handle cases if the entity is not found
         return taskRepository.findById(id).orElse(null);
     }
 
     public Task createTask(PostTasksDto postTasksDto){
-        //based on the entity
+
         Category category = categoryRepository.findById(postTasksDto.getCategoryId())
         .orElseThrow(() -> new IllegalArgumentException("Not a valid argument search input."));
 
-            //Make a new task entity
         Task task1 =  new Task();
         task1.setTaskName(postTasksDto.getTaskName());
         task1.setDeadline(postTasksDto.getDeadline());
@@ -88,8 +81,6 @@ public class TaskService {
         copy.setDeadline(original.getDeadline());
         copy.setMakeArchived(original.getMakeArchived());
 
-        // DO NOT SET ID
-        // Database will generate new ID
         return taskRepository.save(copy);
 
     }
@@ -110,3 +101,4 @@ public class TaskService {
     }
     
 }
+
