@@ -27,7 +27,7 @@ public class DataSeeder implements CommandLineRunner{
       if(this.categoryRepository.count() == 0){
 
         Category categ1 = new Category();
-        categ1.setCategoryName("Others1");
+        categ1.setCategoryName("UX Design");
         categoryRepository.save(categ1);
         System.out.println("Categories seeded.");
       }
@@ -60,4 +60,5 @@ public class DataSeeder implements CommandLineRunner{
       } 
     }
 }
+
 
