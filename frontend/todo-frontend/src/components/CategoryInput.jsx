@@ -7,14 +7,12 @@ function CategoryInput({addCategory}) {
   const handleAddCategory = () => {
     if(category !== ""){
       addCategory(category);
-      //clear the state after adding a new category, prevents duplicate submissions if the user accidentally executes the function more than 1x 
       setCategory("");
     }
   }
 
   return (
     <>
-    {/*onSubmit function */}
     <form className={classes.form__addCateg}>
       <input type="text" value={category} placeholder="Add a new category" onChange={(e)=> setCategory(e.target.value)}/>
       <button onClick = {handleAddCategory}>Add Category</button>
@@ -22,5 +20,6 @@ function CategoryInput({addCategory}) {
     </>
   )
 }
+
 
 export default CategoryInput;
