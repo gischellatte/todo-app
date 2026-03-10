@@ -11,7 +11,6 @@ import org.springframework.stereotype.Component;
 
 @Component
 @Profile("dev")
-//Commandlinerunner so it is automatically when springboot starts 
 public class DataSeeder implements CommandLineRunner{
     
     private TaskRepository taskRepository;
@@ -25,22 +24,18 @@ public class DataSeeder implements CommandLineRunner{
     @Override
     public void run(String... args) throws Exception {
 
-      //if the categoryRepo is 0, add these
       if(this.categoryRepository.count() == 0){
-      //Create a category object
+
         Category categ1 = new Category();
-      //decide the category name
         categ1.setCategoryName("Others1");
         categoryRepository.save(categ1);
-
         System.out.println("Categories seeded.");
       }
       
-      //if the taskRepo is 0, add these
       if(this.taskRepository.count() == 0){
-       //create tasks 
+
         Task task1 = new Task();
-       //decide the task name
+
         task1.setTaskName("Make a prototype using A4 paper");
         task1.setCategory(categoryRepository.findById(12).orElseThrow(()->new IllegalArgumentException("No related category available")));
         task1.setDeadline("15 Mar 2026");
@@ -65,3 +60,4 @@ public class DataSeeder implements CommandLineRunner{
       } 
     }
 }
+
