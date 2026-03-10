@@ -9,10 +9,6 @@ describe('TodoList', () => {
     { id: 3, taskName: 'Task 3', deadline: '18 Feb 2027' },
   ];
 
-  //vi is an object provided by Vitest
-  //vi.fn() is to replace a real function with a fake one, control what a function returns and test how a function is called
-
-
   beforeEach(() => {
     global.fetch = vi.fn((url) => {
       if (url.endsWith('/categories')) {
@@ -52,3 +48,4 @@ describe('TodoList', () => {
     expect(await screen.findByText(/18 Feb 2027/)).toBeInTheDocument();
   });
 });
+
