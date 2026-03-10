@@ -1,11 +1,17 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import classes from '../styles/App.module.scss';
 
-function TodoItem({task, category, id, updateTask, deleteTask, duplicateTask, allCategories = [], deadline, updateTaskCategory}) {
+function TodoItem({taskData}) {
 
-  const [editedTask, setEditedTask] = useState(task);
+  const {taskName, deadline, category, categoryName,  id, updateTask, deleteTask, duplicateTask, allCategories ,  updateTaskCategory} = taskData;
+  const [editedTask, setEditedTask] = useState(taskName);
   const [taskCategory, setTaskCategory] = useState(category);
 
+  // Sync taskCategory state with category if it changes
+  useEffect(() => {
+    setTaskCategory(category); // This ensures that the category is always updated
+  }, [category]);
+  
   const handleUpdate = () => {
     if(editedTask !== "" && editedTask != null) {
     updateTask(id, editedTask);
@@ -16,16 +22,14 @@ function TodoItem({task, category, id, updateTask, deleteTask, duplicateTask, al
     const newCategId = e.target.value;
     setTaskCategory(newCategId);
     updateTaskCategory(id, newCategId);
-
+    console.log(category);
   }
 
-  
   return (
     <div className={classes.form__taskAmend}>
 
       <input value={editedTask} type="text" onChange = {(e) => setEditedTask(e.target.value)}/>
 
-      
       <button className={classes.button__updateTask} 
       onClick={handleUpdate}>Update</button>
       <button className={classes.button__duplicateTask} onClick={()=>duplicateTask(id)}>Duplicate</button>

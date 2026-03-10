@@ -1,13 +1,14 @@
 package com.todo.tasks.dtos;
+import com.todo.entity.Category;
 
 public class UpdateTaskDto {
    private Long id;
    private String taskName;
-   private int categoryId;
+   private Integer categoryId;
    private String deadline;
    private boolean makeArchived;
 
-   public UpdateTaskDto(Long id, String taskName, int categoryId, String deadline, boolean makeArchived){
+   public UpdateTaskDto(Long id, String taskName, Integer categoryId, String deadline, boolean makeArchived){
         this.id = id;
         this.taskName = taskName;
         this.categoryId = categoryId;

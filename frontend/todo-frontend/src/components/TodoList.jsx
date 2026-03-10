@@ -44,7 +44,6 @@ function TodoList() {
       catch (error) {
         console.log("Error in fetching todos: "+ error);
       }
-
     }
 
      fetchAllData();     
@@ -98,7 +97,7 @@ function TodoList() {
       body: JSON.stringify({
         id: taskToUpdate.id,
         taskName: updatedTask,
-        categoryId: taskToUpdate.categoryId,
+        categoryId: taskToUpdate.category?.categoryId,
         deadline: taskToUpdate.deadline,
         makeArchived:taskToUpdate.makeArchived
       })
@@ -171,14 +170,10 @@ console.log(todo);
       <TaskInput addTask={addTask} categories={categories}/>
 
       {todo.map((todoTask) => (
-        //{/ *makeArchived - better use a ternary operator, because it is a boolean 
-        // todoTask.makeArchived? "Archived": "Not archived"
               
-        <TodoItem
-           key={todoTask.id} id={todoTask.id} task={todoTask.taskName} category={todoTask.categoryId} allCategories={categories} 
-           deadline = {todoTask.deadline}
-           deleteTask={deleteTask} updateTask={updateTask} duplicateTask={duplicateTask} updateTaskCategory= {updateTaskCategory}/>
-          
+           <TodoItem
+           key={todoTask.id} taskData={{id: todoTask.id, taskName: todoTask.taskName, category:todoTask.category?.categoryId, 
+            categoryName: todoTask.category?.categoryName, allCategories:categories, deadline: todoTask.deadline, deleteTask:deleteTask, updateTask:updateTask, duplicateTask:duplicateTask, updateTaskCategory: updateTaskCategory}}/>
       ))}
 
       <h2>Archived Tasks</h2> 

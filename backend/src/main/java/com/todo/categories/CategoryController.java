@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 
-import com.todo.entity.Categories;
+import com.todo.entity.Category;
 import com.todo.categories.CategoryService;
 import com.todo.dtos.UpdateCategoryDto;
 
@@ -30,45 +30,44 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 public class CategoryController {
 
-    private final CategoryRepository categoryRepository;
     private final CategoryService categoryService;
 
     public CategoryController(CategoryService categoryService, CategoryRepository categoryRepository){
         this.categoryService = categoryService;
-        this.categoryRepository = categoryRepository;
     }
 
    @GetMapping()
-   //use <List<Categories>> to show all categories because analysing DTOs take longer time. 
-   public ResponseEntity<List<Categories>> findAll(){
-    List<Categories> taskCategories = this.categoryService.getAllCategories();
+   public ResponseEntity<List<Category>> findAll(){
+    List<Category> taskCategories = this.categoryService.getAllCategories();
     return ResponseEntity.ok(taskCategories);
    }
+
    @GetMapping("/{id}")
-   public ResponseEntity<Categories> getById(@PathVariable Integer id){
-    return categoryRepository.findById(id).map(ResponseEntity::ok)
-    .orElse(ResponseEntity.notFound().build());
+   public ResponseEntity<Category> getById(@PathVariable Integer id){
+    Category categService = categoryService.getById(id);
+    return ResponseEntity.ok(categService);
    }
 
    //DELETE /categories/:id
     @DeleteMapping("/{id}")
-   public ResponseEntity<Categories> deleteCategory(@PathVariable Integer id){
+   public ResponseEntity<Category> deleteCategory(@PathVariable Integer id){
     if(!categoryService.deleteByCategory(id)){
         return ResponseEntity.notFound().build();
     }
     return ResponseEntity.noContent().build(); 
    }
+   
    //POST /categories
    @PostMapping
-   public ResponseEntity<Categories> createCategory(@Valid @RequestBody Categories category){
-    Categories createdCategories = categoryService.createCategories(category);
-    return ResponseEntity.status(HttpStatus.CREATED).body(createdCategories);
+   public ResponseEntity<Category> createCategory(@Valid @RequestBody Category category){
+    Category createdCategory = categoryService.createCategory(category);
+    return ResponseEntity.status(HttpStatus.CREATED).body(createdCategory);
    }
 
    // PUT /categories/{id}
    @PutMapping("/{id}")
-   public ResponseEntity<Categories> fullyUpdateCategory(@PathVariable Integer id, @Valid @RequestBody UpdateCategoryDto dto){
-    Categories updatedCategory = categoryService.updateCategory(id, dto);
+   public ResponseEntity<Category> fullyUpdateCategory(@PathVariable Integer id, @Valid @RequestBody UpdateCategoryDto dto){
+    Category updatedCategory = categoryService.updateCategory(id, dto);
     return ResponseEntity.ok(updatedCategory);
    }
 }

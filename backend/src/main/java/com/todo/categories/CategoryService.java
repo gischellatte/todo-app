@@ -2,19 +2,12 @@ package com.todo.categories;
 
 import java.util.List;
 
-import javax.xml.crypto.Data;
-
 import org.springframework.stereotype.Service;
-
-import com.todo.tasks.TaskRepository;
-
-import jakarta.persistence.criteria.CriteriaBuilder.In;
-
-import com.todo.categories.CategoryRepository;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.todo.entity.Categories;
 import com.todo.dtos.UpdateCategoryDto;
+import com.todo.entity.Category;
+import com.todo.tasks.TaskRepository;
 
 @Service
 public class CategoryService {
@@ -26,14 +19,19 @@ public class CategoryService {
        this.categoryRepository = categoryRepository;
     }
 
-    public Categories createCategories(Categories category){
+    public Category createCategory(Category category){
         //pass the category objects from the controller
         return categoryRepository.save(category);
     }
     
+    //In the service, we should return the category object directly, or throw an exception if not found. ResponseEntity is returned in the controller
+    public Category getById(Integer id){
+        return categoryRepository.findById(id)
+        .orElseThrow(()-> new IllegalArgumentException("Can't find the related category.")) ;
+    }
 
-    public List<Categories> getAllCategories(){
-        return this.categoryRepository.findAllCategories();
+    public List<Category> getAllCategories(){
+        return this.categoryRepository.findAll();
     }
 
 //     In Spring Data JPA:
@@ -61,8 +59,8 @@ public class CategoryService {
         return true;
     }
 
-    public Categories updateCategory(Integer id, UpdateCategoryDto dto){
-        Categories searchedCategory = categoryRepository.findById(id)
+    public Category updateCategory(Integer id, UpdateCategoryDto dto){
+        Category searchedCategory = categoryRepository.findById(id)
         .orElseThrow();
         searchedCategory.setCategoryName(dto.getCategoryName());
         return categoryRepository.save(searchedCategory);

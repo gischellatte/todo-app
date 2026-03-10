@@ -15,6 +15,7 @@ function TaskInput({categories, addTask}) {
     {
       addTask(taskName, category, deadline);
       setTaskName("");
+      setDeadline("");
     }
   };
 

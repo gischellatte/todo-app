@@ -1,44 +1,57 @@
+
+@use './partials/media-queries' as ss;
 body {
    background: #e2ebe0;
+}
+
+@mixin flex-row(){
+  display: flex;
+  flex-direction: row;
+}
+
+@mixin padding-verHor($ver, $hor){
+  padding: $ver $hor;
+}
+
+@mixin whiteText-roundBord($rad, $text-col, $backg-col){
+    $totalRadValue: 20 + $rad;
+    border-radius: #{$totalRadValue}px;
+    color: $text-col;
+    background-color: $backg-col;
 }
 
 h1, h2 {
    color: #2c6545
 }
 
-@media screen and (max-width: 480px){
+@include ss.small-screens{
   h1 {
     font-size: 2.4em;
   }
 
   .form__addCateg {
-    display: flex;
-    flex-direction: row;
+    @include flex-row();
     justify-content: center;
-    border-radius: 25px;
-    background-color: white;
-    padding: 8px 0;
+    @include whiteText-roundBord(5, #fff, #fff);
+    @include padding-verHor(8px, 0);
 
     input {
       width: 55%;  
       border: none;
+      background-color: white;
+      
     }
     button {
         height: 35px;
-        display: flex;
-        flex-direction: row;
+        @include flex-row();
         align-items: center;
-        border-radius: 20px;
-        color: white;
-        background-color: #292c73;
-        //margin: 0 0.5%;
+        @include whiteText-roundBord(0, #fff, #292c73);
     }
 }
 
 .form__taskManagement{
-    display: flex;
+    @include flex-row();
     flex-wrap: wrap;
-    flex-direction: row;
     justify-content: center;
     background-color: white;
     border-radius: 25px;
@@ -48,7 +61,6 @@ h1, h2 {
     padding-right: 2px;
     margin-left: 1%;
     margin-bottom: 4%;
-    
 
     input {
         width: 100%;
@@ -61,11 +73,12 @@ h1, h2 {
         margin-bottom: 6%;
     }
     select {
+        background-color: white;
         color: #292c73;
         height: 35px;
         border-radius: 20px;
         border: 2px solid #292c73;
-        padding: 0 1%;
+        @include padding-verHor(0, 1%);
         margin-bottom: 5%;
         margin-left: 1%;
         margin-right: 1%;
@@ -74,12 +87,9 @@ h1, h2 {
     }
     button {
         height: 35px;
-        display: flex;
-        flex-direction: row;
+        @include flex-row();
         align-items: center;
-        border-radius: 20px;
-        color: white;
-        background-color: #292c73;
+        @include whiteText-roundBord(0, #fff, #292c73);
         margin-bottom: 2%;
         margin-left: 0.5%;
         margin-right: 0.5%;
@@ -90,30 +100,29 @@ h1, h2 {
 .form__taskAmend {
     background-color: white;
     border-radius: 25px;
-    padding: 10px 10px;
+    @include padding-verHor(10px, 10px);
     margin-bottom: 15px;
     display: flex;
     flex-wrap: wrap;    
 
     input {
+        background-color: white;
         border: none;
         width: 100%;
-        padding: 8px 10px;
+        @include padding-verHor(8px, 10px);
         font-weight: bold;
         font-family: Arial, Helvetica, sans-serif;
         font-size: 20px;
         color:#292c73
-
     }
 
     select {
-       border: 2px solid #292c73;
-       border-radius: 20px;
-       margin: 0 1%;
-       padding: 1% 0;
-       color: #292c73;
-       font-size: 17px;
-       font-weight: bold;
+    border: 2px solid #292c73;
+    @include whiteText-roundBord(0, #292c73, #fff);
+    margin: 0 1%;
+    @include padding-verHor(1%, 0);
+    font-size: 17px;
+    font-weight: bold;
     }
 
     .button__updateTask{
@@ -125,13 +134,11 @@ h1, h2 {
      background-color: #75bc60;
      border-radius: 20px;
      margin-left: 1%;
-     padding: 0.6em 0.8em;
+     @include padding-verHor(0.6em, 0.8em);
     }
 
     .button_deleteTask{
-     background-color: #357dd1;
-     color: whitesmoke;
-     border-radius: 20px;
+     @include whiteText-roundBord(0, #fff, #357dd1);
      margin-top: 3%;
     }
 
@@ -155,7 +162,7 @@ h1, h2 {
         border-radius: 25px;
         margin-bottom: 15px;
         border: none;
-        padding: 10px 21px;
+        @include padding-verHor(10px, 21px);
         font-weight: bold;
         font-family: Arial, Helvetica, sans-serif;
         font-size: 20px;
@@ -166,46 +173,40 @@ h1, h2 {
 
         span {
          color: #df9965;
-         padding: 0;
+         @include padding-verHor(0, 0);
          font-size: 17px;
         }
     }
     
 }
 
-@media screen and (min-width: 480px) and (max-width: 690px) {
+@include ss.small-med-screens{
   h1 {
     font-size: 2.8em;
   }
 
 .form__addCateg {
-    display: flex;
-    flex-direction: row;
+    @include flex-row();
     justify-content: center;
     border-radius: 25px;
     background-color: white;
-    padding: 8px 0;
+    @include padding-verHor(8px, 0);
 
     input {
+      background-color: white;
       width: 60%;  
       border: none;
     }
     button {
         height: 35px;
-        display: flex;
-        flex-direction: row;
+        @include flex-row();
         align-items: center;
-        border-radius: 20px;
-        color: white;
-        background-color: #292c73;
-        //margin: 0 0.5%;
+        @include whiteText-roundBord(0, #fff, #292c73);
     }
 }
 
 .form__taskManagement{
-    display: flex;
-    flex-direction: row;
-    
+    @include flex-row();
     justify-content: center;
     background-color: white;
     border-radius: 25px;
@@ -217,6 +218,7 @@ h1, h2 {
     margin-bottom: 5%;
 
     input {
+        background-color: white;
         width: 58%;
         height: 37px;
         margin-right: 1%;
@@ -226,11 +228,12 @@ h1, h2 {
         padding-left: 2%;
     }
     select {
+        background-color: white;
         color: #292c73;
         height: 42px;
         border-radius: 20px;
         border: 2px solid #292c73;
-        padding: 0 1%;
+        @include padding-verHor(0, 1%);
         margin: 0 1%;
         font-weight: bold;
         font-size: 15px;
@@ -238,12 +241,9 @@ h1, h2 {
     button {
         height: 42px;
         width: 18%;
-        display: flex;
-        flex-direction: row;
+        @include flex-row();
         align-items: center;
-        border-radius: 20px;
-        color: white;
-        background-color: #292c73;
+        @include whiteText-roundBord(0, #fff, #292c73);
         margin: 0 0.5%;
     }
     
@@ -252,16 +252,16 @@ h1, h2 {
 .form__taskAmend {
     background-color: white;
     border-radius: 25px;
-    padding: 10px 10px;
+    @include padding-verHor(10px, 10px);
     margin-bottom: 15px;
-    display: flex;
-    flex-direction: row;
+    @include flex-row();
     flex-wrap: wrap;
 
     input {
+        background-color: white;
         border: none;
         width: 100%;
-        padding: 5px 10px;
+        @include padding-verHor(5px, 10px);
         font-weight: bold;
         font-family: Arial, Helvetica, sans-serif;
         font-size: 16px;
@@ -269,10 +269,11 @@ h1, h2 {
     }
 
     select {
+       background-color: white;
        border: 2px solid #292c73;
        border-radius: 20px;
        margin: 0 1%;
-       padding: 1% 0;
+       @include padding-verHor(1%, 0);
        color: #292c73;
        font-size: 15px;
        font-weight: bold;
@@ -287,13 +288,11 @@ h1, h2 {
      background-color: #75bc60;
      border-radius: 20px;
      margin-left: 1%;
-     padding: 0.6em 0.8em;
+     @include padding-verHor(0.6em, 0.8em);
     }
 
     .button_deleteTask{
-     background-color: #357dd1;
-     color: whitesmoke;
-     border-radius: 20px;
+     @include whiteText-roundBord(0, #fff, #357dd1);
      margin-top: 2%;     
     }
 
@@ -313,20 +312,19 @@ h1, h2 {
 }
 
 .list__archivedTask {
-    background-color: white;
     border-radius: 25px;
     margin-bottom: 15px;
     border: none;
-    padding: 14px 21px;
+    @include padding-verHor(14px, 21px);
     font-weight: bold;
     font-family: Arial, Helvetica, sans-serif;
     font-size: 16px;
-    color: #292c73;
     text-align: left;
+    @include whiteText-roundBord(5, #292c73, #fff);
 
     span {
         color: #df9965;
-        padding: 0;
+        @include padding-verHor(0, 0);
         font-size: 15px;
       }
     }
@@ -334,38 +332,34 @@ h1, h2 {
 }
 
 
-@media screen and (min-width: 690px) {
+@include ss.large-screens {
  h1 {
     font-size: 3em;
   }
 
 .form__addCateg {
-    display: flex;
-    flex-direction: row;
+    @include flex-row();
     justify-content: center;
     border-radius: 25px;
     background-color: white;
-    padding: 8px 0;
+    @include padding-verHor(8px, 0);
 
     input {
-      width: 70%;  
+      background-color: white;
       border: none;
+      width: 70%;  
     }
+
     button {
         height: 35px;
-        display: flex;
-        flex-direction: row;
+        @include flex-row();
         align-items: center;
-        border-radius: 20px;
-        color: white;
-        background-color: #292c73;
-        //margin: 0 0.5%;
+        @include whiteText-roundBord(0, #fff, #292c73);
     }
 }
 
 .form__taskManagement{
-    display: flex;
-    flex-direction: row;
+    @include flex-row();
     justify-content: center;
     background-color: white;
     border-radius: 25px;
@@ -382,58 +376,55 @@ h1, h2 {
         margin-right: 1%;
         border: none;
         border-radius: 20px;
-        background-color: #f3f3f3;
+        background-color: white;
         padding-left: 2%;
     }
     select {
+        background-color: white;
         color: #292c73;
         height: 35px;
         border-radius: 20px;
         border: 2px solid #292c73;
-        padding: 0 1%;
+        @include padding-verHor(0, 1%);
         margin: 0 1%;
         font-weight: bold;
         font-size: 15px;
+        @include whiteText-roundBord(0, #292c73,#fff);
     }
     button {
         height: 35px;
         width: 18%;
-        display: flex;
-        flex-direction: row;
+        @include flex-row();
         align-items: center;
-        border-radius: 20px;
-        color: white;
-        background-color: #292c73;
+        @include whiteText-roundBord(0, #fff, #292c73);
         margin: 0 0.5%;
-    }
-    
+    }  
 }
 
 .form__taskAmend {
     background-color: white;
     border-radius: 25px;
-    padding: 10px 10px;
+    @include padding-verHor(10px, 10px);
     margin-bottom: 15px;
-    
 
     input {
+        background-color: white;
         border: none;
         width: 30%;
-        padding: 5px 10px;
+        @include padding-verHor(5px, 10px);
         font-weight: bold;
         font-family: Arial, Helvetica, sans-serif;
         font-size: 16px;
-        color:#292c73
+        color:#292c73;
     }
 
     select {
        border: 2px solid #292c73;
-       border-radius: 20px;
        margin: 0 1%;
-       padding: 1% 0;
-       color: #292c73;
+       @include padding-verHor(1%, 0);
        font-size: 15px;
        font-weight: bold;
+       @include whiteText-roundBord(0, #292c73, #fff);
     }
 
     .button__updateTask{
@@ -445,13 +436,11 @@ h1, h2 {
      background-color: #75bc60;
      border-radius: 20px;
      margin-left: 1%;
-     padding: 0.6em 0.8em;
+     @include padding-verHor(0.6em, 0.8em);
     }
 
     .button_deleteTask{
-     background-color: #357dd1;
-     color: whitesmoke;
-     border-radius: 20px;
+     @include whiteText-roundBord(0, #fff, #357dd1);
     }
 
     select {
@@ -468,22 +457,19 @@ h1, h2 {
 }
 
 .list__archivedTask {
-    background-color: white;
-    border-radius: 25px;
+    @include whiteText-roundBord(5, #292c73, #fff);
     margin-bottom: 15px;
     border: none;
-    padding: 14px 21px;
+    @include padding-verHor(14px, 21px);
     font-weight: bold;
     font-family: Arial, Helvetica, sans-serif;
     font-size: 16px;
-    color: #292c73;
     text-align: left;
 
     span {
         color: #df9965;
-        padding: 0;
+        @include padding-verHor(0, 0);
         font-size: 15px;
       }
     }
-
 }
