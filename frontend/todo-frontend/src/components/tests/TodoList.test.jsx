@@ -10,10 +10,6 @@ describe('TodoList', () => {
     { id: 3, taskName: 'Task 3', deadline: '18 Feb 2027' },
   ];
 
-  //vi is an object provided by Vitest
-  //vi.fn() is to replace a real function with a fake one, control what a function returns and test how a function is called
-
-  //fetch all tasks
   beforeEach(() => {
     global.fetch = vi.fn((url) => {
       if (url.endsWith('/categories')) {
@@ -42,7 +38,6 @@ describe('TodoList', () => {
   it('renders todos', async () => {
     render(<TodoList />);
 
-    // Just check one task at a time — simplest possible pattern
     expect(await screen.findByDisplayValue('Task 1')).toBeInTheDocument();
     expect(await screen.findByText(/05 Jan 2027/)).toBeInTheDocument();
 
@@ -57,11 +52,6 @@ describe('TodoList', () => {
   //Add a category
   it('Should show a new category after user clicks on the button', async () => {
 
-    /*state depends on the server -> must use fetch when:
-    1. Obtaining data from a server (GET) 
-    2. Sends data to the server (POST/PUT/DELETE)
-    3. Your state depends on the backend result
-    */
     global.fetch = vi.fn (() => 
       Promise.resolve({
         json: () => Promise.resolve({id: 99, categoryName: "react"})
@@ -73,9 +63,8 @@ describe('TodoList', () => {
     await user.click (addCategBtn);
     const addedCateg = await screen.findByText(/react/i);
     
-    const selectElement = screen.getByRole('combobox'); // Combobox element is detected
-    console.log(selectElement.innerHTML); // opens inner html for debugging
-    // Assert that the new category option is in the document
+    const selectElement = screen.getByRole('combobox');
+    console.log(selectElement.innerHTML);
     expect(addedCateg).toBeInTheDocument();
   });
 
@@ -91,12 +80,11 @@ it('It must duplicate a task', async () => {
     }
 
 
-    if(url.endsWith("/todos") && (!options || options.method === 'GET')) { //so it only picks up all /todos
+    if(url.endsWith("/todos") && (!options || options.method === 'GET')) {
       return Promise.resolve({
         ok: true,
         json: () => Promise.resolve([ 
-          //mus
-          { id: 1, taskName: "Task 1", deadline: "05 Jan 2027"}, //need a mock data in the array because we are duplicating a task
+          { id: 1, taskName: "Task 1", deadline: "05 Jan 2027"}, 
           { id: 2, taskName: "Task 2", deadline: "15 Feb 2027"},
           { id: 3, taskName: "Task 3", deadline: "18 Feb 2027"}
         ])
@@ -106,7 +94,7 @@ it('It must duplicate a task', async () => {
     if(url.includes("todos/archived")){
       return Promise.resolve({
         ok: true,
-        json: () => Promise.resolve([]) //duplicates are secondary data, the UI does not really care
+        json: () => Promise.resolve([])
       });
     }
 
