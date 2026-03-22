@@ -13,6 +13,9 @@ import org.mockito.Mock;
 import org.mockito.InjectMocks;
 
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Optional;
 
@@ -59,7 +62,7 @@ class TaskServiceTest {
     //Create a DTO to simulate imput
     PostTasksDto postTasksDto1 =  new PostTasksDto(); 
     postTasksDto1.setTaskName("Testing createTask()"); 
-    postTasksDto1.setDeadline("1 Aug 2026");
+    postTasksDto1.setDeadline(formatToLocalDate ("1 Aug 2026"));
     postTasksDto1.setCategoryId(1); //1 for Integer, 1L for a Long
     postTasksDto1.setMakeArchived(false);
 
@@ -84,6 +87,9 @@ class TaskServiceTest {
     assertEquals("JavaScript", mockTask.getCategory().getCategoryName()); //category ID 1 is JavaScript
     }
 
-   
+   LocalDate formatToLocalDate (String dateStr) {
+      DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("dd MMM yyyy");
+      return LocalDate.parse(dateStr, timeFormatter);
+    }
 
 }

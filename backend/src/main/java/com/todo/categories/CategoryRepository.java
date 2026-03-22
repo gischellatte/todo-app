@@ -5,9 +5,13 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
 import com.todo.entity.Category;
+import java.util.Optional;
 
 
 public interface CategoryRepository extends JpaRepository<Category, Integer>{
    //findAll is one of the names from Java Spring convention. findAllCategories() (the method we previously use) is a custom method name and we need a @query
     List<Category> findAll();
+
+    //if it returns a Category with the specified name, we will get Optional.of(category). If not, it will return Optional.empty
+    Optional<Category> findByCategoryName (String categoryName);
 }

@@ -1,14 +1,16 @@
 package com.todo.tasks.dtos;
+import java.time.LocalDate;
+
 import com.todo.entity.Category;
 
 public class UpdateTaskDto {
    private Long id;
    private String taskName;
    private Integer categoryId;
-   private String deadline;
+   private LocalDate deadline;
    private boolean makeArchived;
 
-   public UpdateTaskDto(Long id, String taskName, Integer categoryId, String deadline, boolean makeArchived){
+   public UpdateTaskDto(Long id, String taskName, Integer categoryId, LocalDate deadline, boolean makeArchived){
         this.id = id;
         this.taskName = taskName;
         this.categoryId = categoryId;
@@ -40,12 +42,12 @@ public class UpdateTaskDto {
         this.categoryId = categoryId;
     }
 
-    public String getDeadline() {
+    public LocalDate getDeadline() {
         return deadline;
     }
 
-    public void setDeadline(String deadline) {
-        this.deadline=deadline;
+    public void setDeadline(LocalDate deadline) {
+        this.deadline = deadline;
     }
 
     public boolean getMakeArchived() {

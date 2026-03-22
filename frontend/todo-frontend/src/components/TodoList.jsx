@@ -9,6 +9,7 @@ function TodoList() {
   const [categories, setCategories] = useState([]);
   const [todo, setTodo] = useState([]);
   const [archived, setArchived] = useState([]);
+  const [appeared, setAppeared] = useState(false);
   
   // Fetch categories from the backend
   useEffect(() => {
@@ -27,7 +28,7 @@ function TodoList() {
       catch (error){
         console.log("Error in fetching categories: " + error);
       }
-      try{
+      try {
         let activeTaskResponse = await fetch('http://localhost:8080/todos');
         let archivedTaskResponse = await fetch('http://localhost:8080/todos/archived');
 
@@ -49,6 +50,10 @@ function TodoList() {
      fetchAllData();     
   }, []); // Empty dependency array ensures the API call is made once when the component mounts
 
+  const showDuplicTask = (notif) => {
+    setAppeared(notif);
+    setTimeout(() => setAppeared(""), 350000)
+  }
 
   //For the post method - add a new category
   const addCategory = (category) => {
@@ -144,25 +149,36 @@ function TodoList() {
   };
 
   const deleteTask = (id) => {
-   fetch(`http://localhost:8080/todos/${id}`, {
+    let delConfirmation = window.confirm ("Are you sure you want to delete this task?");
+
+    if(delConfirmation) { 
+      fetch(`http://localhost:8080/todos/${id}`, {
       method: "DELETE"
-    })
+      })
     .then((response) => response.json())
     .then((archivedTask) => setTodo(prev => prev.filter(task => task.id!=id)))
     .catch((error) => console.log("Failed to archive the task. "+ error))
+    }
   };
 
   const duplicateTask = (id) =>{
+    
     fetch(`http://localhost:8080/todos/${id}/duplicate`, {
       method: "POST"
     })
     .then((response) => response.json())
-    .then((newTask) => setTodo(prev => [...prev, newTask]))
+    .then((newTask) => { setTodo(prev => [...prev, newTask]); 
+    showDuplicTask("Successfully duplicated the task!")
+    })
     .catch((error) => console.log("Failed to duplicate the task. "+ error))
   }
-console.log(todo);
+
+
   return (
-   <div className="todo-list">
+   <div>
+      {appeared} && <div className={classes.notif__duplicate}>🔔
+    {appeared}
+  </div>
       <h2>Task Categories</h2>
       <CategoryInput addCategory={addCategory}/>
 

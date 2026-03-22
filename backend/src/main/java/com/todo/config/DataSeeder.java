@@ -1,4 +1,7 @@
 package com.todo.config; 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Profile;
 
@@ -30,7 +33,7 @@ public class DataSeeder implements CommandLineRunner{
       //Create a category object
         Category categ1 = new Category();
       //decide the category name
-        categ1.setCategoryName("Others1");
+        categ1.setCategoryName("UX Design");
         categoryRepository.save(categ1);
 
         System.out.println("Categories seeded.");
@@ -38,30 +41,40 @@ public class DataSeeder implements CommandLineRunner{
       
       //if the taskRepo is 0, add these
       if(this.taskRepository.count() == 0){
+
+        Category uxDesignCategory = categoryRepository.findByCategoryName("UX Design").orElseThrow(()->new IllegalArgumentException("UX Design category not available"));
+
+          // Create and save new tasks
+          createTaskIfnotExists("Make a prototype using A4 paper", uxDesignCategory, "15 Mar 2026");
+          createTaskIfnotExists("Make a prototype using Figma", uxDesignCategory, "25 Mar 2026");
+          createTaskIfnotExists("Upgrade Everything to Javascript Es6", uxDesignCategory, "03 Apr 2026");
+        }
+      } 
+
+      private void createTaskIfnotExists(String taskName, Category categ, String deadline)
+      {
+        if(taskRepository.findByTaskName(taskName).isEmpty()){
        //create tasks 
         Task task1 = new Task();
        //decide the task name
-        task1.setTaskName("Make a prototype using A4 paper");
-        task1.setCategory(categoryRepository.findById(12).orElseThrow(()->new IllegalArgumentException("No related category available")));
-        task1.setDeadline("15 Mar 2026");
+        task1.setTaskName(taskName);
+        task1.setCategory(categ);
+        task1.setDeadline(formatToLocalDate(deadline));
         task1.setMakeArchived(false);
         taskRepository.save(task1);
 
-        Task task2 = new Task();
-        task2.setTaskName("Make a prototype using Figma");
-        task2.setCategory(categoryRepository.findById(12).orElseThrow(()->new IllegalArgumentException("No related category available")));
-        task2.setDeadline("25 Mar 2026");
-        task2.setMakeArchived(false);
-        taskRepository.save(task2);
-
-        Task task3 = new Task();
-        task3.setTaskName("Upgrade Everything to Javascript Es6");
-        task3.setCategory(categoryRepository.findById(1).orElseThrow(()->new IllegalArgumentException("No related category available")));
-        task3.setDeadline("03 Apr 2026");
-        task3.setMakeArchived(false);
-        taskRepository.save(task3);
-
         System.out.println("New tasks seeded.");
-      } 
+        }
+
+        else {
+          System.out.println(taskName + "exists");
+        }
+      
     }
+
+    private LocalDate formatToLocalDate (String dateStr) {
+      DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("dd MMM yyyy");
+      return LocalDate.parse(dateStr, timeFormatter);
+    }
+  
 }

@@ -3,6 +3,9 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Table;
+
+import java.time.LocalDate;
+
 import jakarta.persistence.Column;
 
 public class DeleteTasksDto {
@@ -10,10 +13,10 @@ public class DeleteTasksDto {
     private Long id;
     private String taskName;
     private int categoryId;
-    private String deadline;
+    private LocalDate deadline;
     private boolean makeArchived;
 
-    public DeleteTasksDto(Long id, String taskName, int categoryId, String deadline, boolean makeArchived){
+    public DeleteTasksDto(Long id, String taskName, int categoryId, LocalDate deadline, boolean makeArchived){
         this.id = id;
         this.taskName = taskName;
         this.categoryId = categoryId;
@@ -45,12 +48,12 @@ public class DeleteTasksDto {
         this.categoryId = categoryId;
     }
 
-    public String getDeadline() {
+    public LocalDate getDeadline() {
         return deadline;
     }
 
-    public void setDeadline(String deadline) {
-        this.deadline=deadline;
+    public void setDeadline(LocalDate deadline) {
+        this.deadline = deadline;
     }
 
     public boolean getMakeArchived() {

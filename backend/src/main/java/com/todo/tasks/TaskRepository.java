@@ -3,6 +3,7 @@ package com.todo.tasks;
 
 //import org.springframework.scheduling.config.Task;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -23,5 +24,7 @@ public interface TaskRepository extends JpaRepository<Task, Integer>{
 
     List <Task> findByMakeArchivedTrue();
    
+     Optional <Task> findByTaskName(String taskName);
+
     void deleteByCategoryId(Integer categoryId);
 }

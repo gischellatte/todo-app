@@ -9,6 +9,8 @@ import jakarta.persistence.Column;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 
+import java.time.LocalDate;
+
 import jakarta.persistence.Access; 
 import jakarta.persistence.AccessType;
 
@@ -30,7 +32,7 @@ public class Task {
     //private Integer categoryId;
     private Category category;
 
-    private String deadline;
+    private LocalDate deadline;
     
     @Column(name = "make_archived")
     private boolean makeArchived;
@@ -58,11 +60,11 @@ public class Task {
         this.category = category;
     }
 
-    public String getDeadline() {
+    public LocalDate getDeadline() {
         return deadline;
     }
 
-    public void setDeadline(String deadline) {
+    public void setDeadline(LocalDate deadline) {
         this.deadline=deadline;
     }
 

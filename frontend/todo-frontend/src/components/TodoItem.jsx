@@ -21,8 +21,14 @@ function TodoItem({taskData}) {
   let handleCategoryChange = (e) =>{
     const newCategId = e.target.value;
     setTaskCategory(newCategId);
-    updateTaskCategory(id, newCategId);
-    console.log(category);
+    
+ 
+  }
+
+  const handleUpdateCategory = () =>{
+    if(taskCategory!==category){
+      updateTaskCategory(id, taskCategory);
+    }
   }
 
   return (
@@ -33,13 +39,18 @@ function TodoItem({taskData}) {
       <button className={classes.button__updateTask} 
       onClick={handleUpdate}>Update</button>
       <button className={classes.button__duplicateTask} onClick={()=>duplicateTask(id)}>Duplicate</button>
-      <select value={taskCategory} onChange={handleCategoryChange}>
+      <button className = {classes.button_deleteTask} 
+      onClick={() => deleteTask(id)}>Delete</button>
+      <div className = {classes.dropDown__categ}>
+        <select value={taskCategory} onChange={handleCategoryChange}>
         {allCategories.map((categ) => (
           <option key={categ.categoryId} value={categ.categoryId}>{categ.categoryName}</option>
         ))}
-      </select>
-      <button className = {classes.button_deleteTask} 
-      onClick={() => deleteTask(id)}>Delete</button>
+        </select>
+        <button className={classes.button__confirmCateg} onClick={handleUpdateCategory}>Confirm Category</button>
+      </div>
+      
+      
       <div className={classes[`form__taskAmend-deadline`]}>
         <b>Deadline: {deadline}</b>
       </div>
