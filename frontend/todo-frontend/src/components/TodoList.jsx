@@ -11,7 +11,6 @@ function TodoList() {
   const [archived, setArchived] = useState([]);
   const [appeared, setAppeared] = useState(false);
   
-  // Fetch categories from the backend
   useEffect(() => {
 
     const fetchAllData = async () => {
@@ -21,7 +20,7 @@ function TodoList() {
         if(!categResponse.ok){
           throw new Error("Cannot fetch categories.");
         }
-        //json() runs on response objects (returned by a fetch())
+
         const categData =  await categResponse.json();
         setCategories(categData);
       }
@@ -48,14 +47,14 @@ function TodoList() {
     }
 
      fetchAllData();     
-  }, []); // Empty dependency array ensures the API call is made once when the component mounts
+  }, []);
+
 
   const showDuplicTask = (notif) => {
     setAppeared(notif);
-    setTimeout(() => setAppeared(""), 350000)
+    setTimeout(() => setAppeared(""), 3500)
   }
 
-  //For the post method - add a new category
   const addCategory = (category) => {
      fetch('http://localhost:8080/categories', {
       method: "POST",
@@ -66,19 +65,19 @@ function TodoList() {
     })
     .then((response) => response.json())
 
-    //addedCategory is the result from the backend after the POST requests to make a new category
+
     .then((addedCategory) => setCategories([...categories, addedCategory]))
     .catch((error) => console.log("Cannot a new category. "+ error))
   };
 
-  //for the post methods - add a new task using an old category (no need to refetch the categories)
+
   const addTask = (taskName, category, deadline) => {
     fetch('http://localhost:8080/todos', {
       method: "POST",
       headers: {
         "Content-type": "application/json",
       },
-      //recheck
+
       body: JSON.stringify({
         taskName: taskName,
         categoryId: category, 
@@ -91,7 +90,7 @@ function TodoList() {
     .catch((error) => console.log("Cannot a new task. "+ error))
   };
 
-  //update task - name
+
   const updateTask = (id, updatedTask) => {
     const taskToUpdate = todo.find(task => task.id ===id);
     fetch(`http://localhost:8080/todos/${id}`, {
@@ -120,9 +119,9 @@ function TodoList() {
     .catch((error) => console.log("Failed to update the task. "+ error))
   };
 
-    //update category - name
+
   const updateTaskCategory = (taskId, newCategId) => {
-    //look for the right object using find() through taskId
+
     const taskToUpdate = todo.find(task => task.id === taskId);
     fetch(`http://localhost:8080/todos/${taskId}`, {
       method: "PUT",
@@ -168,7 +167,7 @@ function TodoList() {
     })
     .then((response) => response.json())
     .then((newTask) => { setTodo(prev => [...prev, newTask]); 
-    showDuplicTask("Successfully duplicated the task!")
+    showDuplicTask("🔔 Successfully duplicated the task!")
     })
     .catch((error) => console.log("Failed to duplicate the task. "+ error))
   }
@@ -176,9 +175,10 @@ function TodoList() {
 
   return (
    <div>
-      {appeared} && <div className={classes.notif__duplicate}>🔔
+      {appeared && (<div className={classes.notif__duplicate}>
     {appeared}
   </div>
+      )}      
       <h2>Task Categories</h2>
       <CategoryInput addCategory={addCategory}/>
 
@@ -205,5 +205,6 @@ function TodoList() {
     
   );
 }
+
 
 export default TodoList;

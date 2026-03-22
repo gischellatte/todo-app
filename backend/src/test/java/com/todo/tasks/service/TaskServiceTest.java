@@ -41,7 +41,6 @@ class TaskServiceTest {
 
 
     @Test
-    //JUnit5 must have no test parameters (esp when we do sth simple)
     public void testingGetAllTasks_categId() {
         when(taskRepository.findByMakeArchivedFalse()).thenReturn(List.of(new Task()));
         List<Task> tasks = taskService.getAllTasks(null);
@@ -59,16 +58,16 @@ class TaskServiceTest {
 
     @Test
     public void testingCreateTask(){
-    //Create a DTO to simulate imput
+
     PostTasksDto postTasksDto1 =  new PostTasksDto(); 
     postTasksDto1.setTaskName("Testing createTask()"); 
     postTasksDto1.setDeadline(formatToLocalDate ("1 Aug 2026"));
     postTasksDto1.setCategoryId(1); //1 for Integer, 1L for a Long
     postTasksDto1.setMakeArchived(false);
 
-    //Create a mock categ. object returned by categoryRepository.findById()
+
     Category mockCategory = new Category();
-    mockCategory.setCategoryId(1); //1 for Integer, 1L for a Long
+    mockCategory.setCategoryId(1); 
     mockCategory.setCategoryName("JavaScript");
 
     Task mockTask = new Task();
@@ -77,19 +76,20 @@ class TaskServiceTest {
     mockTask.setCategory(mockCategory);
     mockTask.setMakeArchived(postTasksDto1.getMakeArchived());
     
-    //taskService.createTask(postTasksDto1);
+
     when(categoryRepository.findById(1)).thenReturn(Optional.of(mockCategory));
     when(taskRepository.save(any(Task.class))).thenReturn(mockTask);
 
     taskService.createTask(postTasksDto1);
 
-    verify(taskRepository, times(1)).save(any(Task.class)); //call the function
-    assertEquals("JavaScript", mockTask.getCategory().getCategoryName()); //category ID 1 is JavaScript
+    verify(taskRepository, times(1)).save(any(Task.class));
+    assertEquals("JavaScript", mockTask.getCategory().getCategoryName());
     }
 
    LocalDate formatToLocalDate (String dateStr) {
       DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("dd MMM yyyy");
       return LocalDate.parse(dateStr, timeFormatter);
     }
+
 
 }

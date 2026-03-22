@@ -45,3 +45,4 @@ function TaskInput({categories, addTask}) {
 }
 
 export default TaskInput;
+

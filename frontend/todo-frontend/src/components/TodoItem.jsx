@@ -7,9 +7,8 @@ function TodoItem({taskData}) {
   const [editedTask, setEditedTask] = useState(taskName);
   const [taskCategory, setTaskCategory] = useState(category);
 
-  // Sync taskCategory state with category if it changes
   useEffect(() => {
-    setTaskCategory(category); // This ensures that the category is always updated
+    setTaskCategory(category);
   }, [category]);
   
   const handleUpdate = () => {
@@ -57,5 +56,6 @@ function TodoItem({taskData}) {
     </div>
   );
 }
+
 
 export default TodoItem;

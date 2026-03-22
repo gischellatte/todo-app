@@ -1,5 +1,5 @@
 package com.todo.entity;
-import com.fasterxml.jackson.annotation.JsonIgnore; //differ from Github
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -18,8 +18,8 @@ import com.todo.entity.Task;
 public class Category {
     
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY) // Without this, the ID would be null or manually set, leading to errors on INSERT (duplicate or NULL primary key). Necessary for for auto-increment fields like 'CategoryID' or 'TaskID'
-    @Column(name = "CategoryID")//must match the mysql
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "CategoryID")
     private Integer id;
 
     @Column (name = "category_name")
@@ -27,7 +27,7 @@ public class Category {
 
     @OneToMany (mappedBy = "category")
     @JsonIgnore
-    private List<Task> tasks; //1 categ has many tasks, keep the get and sets plural
+    private List<Task> tasks;
 
     public Category(){}
 
@@ -54,3 +54,4 @@ public class Category {
         this.tasks = tasks;
     }
 }
+

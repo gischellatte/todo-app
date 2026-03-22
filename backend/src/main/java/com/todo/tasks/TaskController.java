@@ -36,11 +36,9 @@ public class TaskController {
     this.repository = repository;
  }
 //GET /todos 
-//Postman URL: http://localhost:8080/todos and GET /todos?category={}
 @GetMapping 
 public ResponseEntity<List<Task>> retrieveTask(@RequestParam(value="category", required = false) Integer categId) {
-//List<Task> returns all tasks in 1 response
-//Task can only return 1 task
+
     List<Task> tasks = taskService.getAllTasks(categId);
     return ResponseEntity.ok(tasks);
 }
@@ -59,22 +57,11 @@ public ResponseEntity<Task> addTask(@Valid @RequestBody PostTasksDto postTasksDt
         return ResponseEntity.status(HttpStatus.CREATED).body(createdTask);
     }
 
-//GET /todos?category={id}
-//In a Spring Boot app, the controller should call the service, not the repository directly (best practice)
-
-// @GetMapping
-// public ResponseEntity<List<Task>> retrieveTaskCateg(@RequestParam(required = false) Integer categId) {
-// //List <Task> findByCategoryId(Integer categoryId); 
-//     List<Task> tasksCateg = taskService.getAllTasks(categId);
-//     return ResponseEntity.ok(tasksCateg);
-// }
-
-
 //DELETE /todos/:id
 @DeleteMapping("/{id}")
 public ResponseEntity<Task> archiveTask(@PathVariable Integer id) {
     boolean sentToArchive = taskService.archiveTask(id);
-    // a task is successfully archived
+
     if(sentToArchive){
         Task archivedTask = taskService.getTaskById(id);
         return ResponseEntity.ok(archivedTask);
@@ -100,3 +87,5 @@ public ResponseEntity<Task> archiveTask(@PathVariable Integer id) {
         
     } 
 }
+
+
