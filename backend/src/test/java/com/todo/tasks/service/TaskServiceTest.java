@@ -65,7 +65,7 @@ class TaskServiceTest {
     PostTasksDto postTasksDto1 =  new PostTasksDto(); 
     postTasksDto1.setTaskName("Testing createTask()"); 
     postTasksDto1.setDeadline(formatToLocalDate ("1 Aug 2026"));
-    postTasksDto1.setCategoryId(1); //1 for Integer, 1L for a Long
+    postTasksDto1.setCategoryId(1); 
     postTasksDto1.setMakeArchived(false);
 
 
