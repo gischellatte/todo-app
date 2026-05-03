@@ -34,9 +34,6 @@ public class DataSeeder implements CommandLineRunner{
         categ1.setCategoryName("UX Design");
         categoryRepository.save(categ1);
 
-        Category categ1 = new Category();
-        categ1.setCategoryName("UX Design");
-        categoryRepository.save(categ1);
         System.out.println("Categories seeded.");
       }
       

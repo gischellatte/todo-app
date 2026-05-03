@@ -15,20 +15,17 @@ function TodoItem({taskData}) {
     if(editedTask !== "" && editedTask != null) {
     updateTask(id, editedTask);
     }
+
+    if(taskCategory!==category){
+      updateTaskCategory(id, taskCategory);
+    }    
   };
 
   let handleCategoryChange = (e) =>{
     const newCategId = e.target.value;
-    setTaskCategory(newCategId);
-    
- 
+    setTaskCategory(newCategId); 
   }
 
-  const handleUpdateCategory = () =>{
-    if(taskCategory!==category){
-      updateTaskCategory(id, taskCategory);
-    }
-  }
 
   return (
     <div className={classes.form__taskAmend}>
@@ -46,7 +43,7 @@ function TodoItem({taskData}) {
           <option key={categ.categoryId} value={categ.categoryId}>{categ.categoryName}</option>
         ))}
         </select>
-        <button className={classes.button__confirmCateg} onClick={handleUpdateCategory}>Confirm Category</button>
+       
       </div>
       
       

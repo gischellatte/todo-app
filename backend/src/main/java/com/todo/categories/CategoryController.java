@@ -54,7 +54,7 @@ public class CategoryController {
     if(!categoryService.deleteByCategory(id)){
         return ResponseEntity.notFound().build();
     }
-    return ResponseEntity.noContent().build(); 
+    return ResponseEntity.noContent().build();//noContent() is a factory method from ResponseEntity which prepares the 204 status content. So with the build(), it means the response returned to the client does not have a body
    }
    
    //POST /categories
