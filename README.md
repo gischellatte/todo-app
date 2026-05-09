@@ -21,6 +21,11 @@ This is a full-stack Todo App project. The app is designed to:
 - Remove tasks
 - Check task details and deadlines
 
+**Design Goals / Approach**
+- I utilised Google Gemini to create the hi-fi prototype of the app. So I have a better visual direction and user experience before proceeding with the coding phase.
+- The screen is responsive and has been tested across various sizes and devices. I used SCSS to configure the colours and dimensions.
+- The layout has been enhanced with the dark mode settings in Google Chrome, ensuring convenience and accessibility for users who prefer dark themes. 
+
 **Known issues**
 - The app had 2 separate buttons to update category and task. This could have been merged into 1 button (updated).
 - Users cannot undo archived tasks.
