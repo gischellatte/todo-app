@@ -26,6 +26,28 @@ This is a full-stack Todo App project. The app is designed to:
 - The screen is responsive and has been tested across various sizes and devices. I used SCSS to configure the colours and dimensions.
 - The layout has been enhanced with the dark mode settings in Google Chrome, ensuring convenience and accessibility for users who prefer dark themes. 
 
+**Features**
+
+Frontend:
+- Add a new task, incuding:
+  - task category
+  - task deadline
+- Update existing tasks
+- Archive a task
+- List down all current and archived tasks
+- datepicker feature for easier date selection.
+
+ Backend:
+ - Add a new task, incuding:
+    - task category
+    - task deadline
+- Update existing tasks
+- Archive a task
+- Remove a task permanently
+- Manage task categories:
+- Update categories
+- Delete categories permanently
+
 **Known issues**
 - The app had 2 separate buttons to update category and task. This could have been merged into 1 button (updated).
 - Users cannot undo archived tasks.
