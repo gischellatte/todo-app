@@ -9,17 +9,34 @@
 https://github.com/gischellatte/todo-app
 
 **Requirements / Purpose**
+
 This is a full-stack Todo App project. The app is designed to:
 - Allow users to view, create, update and delete tasks via front-end and backend.
   Users can soft-delete (archive) tasks via frontend and hard-delete via backend (e.g. via MySQL or Postman)
 - Integrate backend and frontend systems.
 - Allow users to manage their tasks through different screen sizes.
 
-**MVP (Minimum Viable Product)**
+MVP (Minimum Viable Product):
 - Add new tasks
 - Edit existing tasks
 - Remove tasks
 - Check task details and deadlines
+
+**Build Steps** 
+
+Frontend
+- Navigate to the todo-frontend folder using your terminal.
+  - cd todo-frontend
+- (After installing dependencies) Execute npm run dev in the employee-frontend folder.
+  - npm run dev
+- NB: The frontend can only run on http://localhost:5173
+
+Backend 
+- Navigate to the backend folder using your terminal.
+  - cd backend
+- (After installing the dependencies) Run mvn spring-boot:run in the demo folder.
+  - mvn spring-boot:run
+- NB: The server can only run in 1 terminal.
 
 **Design Goals / Approach**
 - I utilised Google Gemini to create the hi-fi prototype of the app. So I have a better visual direction and user experience before proceeding with the coding phase.
