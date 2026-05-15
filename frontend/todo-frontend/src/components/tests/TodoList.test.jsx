@@ -9,11 +9,6 @@ describe('TodoList', () => {
     { id: 2, taskName: 'Task 2', deadline: '15 Feb 2027' },
     { id: 3, taskName: 'Task 3', deadline: '18 Feb 2027' },
   ];
-
-  //vi is an object provided by Vitest
-  //vi.fn() is to replace a real function with a fake one, control what a function returns and test how a function is called
-
-  //fetch all tasks. Use BeforeEach() to provide a 'fresh' environment
   beforeEach(() => {
     global.fetch = vi.fn((url) => {
       if (url.endsWith('/categories')) {
@@ -42,7 +37,7 @@ describe('TodoList', () => {
   it('renders todos', async () => {
     render(<TodoList />);
 
-    // Just check one task at a time — easiest possible pattern
+
     expect(await screen.findByDisplayValue('Task 1')).toBeInTheDocument();
     expect(await screen.findByText(/05 Jan 2027/)).toBeInTheDocument();
 
