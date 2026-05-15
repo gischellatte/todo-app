@@ -13,7 +13,7 @@ function TodoItem({taskData}) {
   
   const handleUpdate = () => {
     if(editedTask !== "" && editedTask != null) {
-    updateTask(id, editedTask);
+     updateTask(id, editedTask);
     }
 
     if(taskCategory!==category){
@@ -25,7 +25,6 @@ function TodoItem({taskData}) {
     const newCategId = e.target.value;
     setTaskCategory(newCategId); 
   }
-
 
   return (
     <div className={classes.form__taskAmend}>
@@ -42,8 +41,7 @@ function TodoItem({taskData}) {
         {allCategories.map((categ) => (
           <option key={categ.categoryId} value={categ.categoryId}>{categ.categoryName}</option>
         ))}
-        </select>
-       
+        </select>   
       </div>
       
       

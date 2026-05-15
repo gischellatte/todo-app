@@ -9,6 +9,7 @@ function TaskInput({categories, addTask}) {
   const [category, setCategory] = useState(categories.length > 0 ? categories[0].categoryId:"");
   const [deadline, setDeadline] = useState("");
 
+
   const formatDate = (dateString) => {
     const date = new Date (dateString);
     const options = {year: '2-digit', month: 'short', day:'2-digit'};
@@ -24,6 +25,12 @@ function TaskInput({categories, addTask}) {
     }
   };
 
+    
+      //Date blocker (for the deadline) - based on AEST time (Canberra Melbourne & Sydney)
+     const todayDate = new Date();
+     const sydTodayDate = new Date(todayDate.getTime() - todayDate.getTimezoneOffset() * 6000).toISOString().split("T")[0];
+   
+
   return ( <>
   <div className={classes.form__taskManagement}>
     <input type="text" value={taskName} onChange={(e) => setTaskName(e.target.value)} placeholder="Enter task name"
@@ -35,11 +42,12 @@ function TaskInput({categories, addTask}) {
         </option>))
       }
     </select>
-    <input type="date" placeholder="" value ={deadline ||''} onChange={(e) => setDeadline(e.target.value)}/>
+    <input type="date" placeholder="" value ={deadline ||''} onChange={(e) => setDeadline(e.target.value)} min={sydTodayDate}/>
     
     <button onClick={handleAddTask}>Add Task</button>
       
   </div>
+
   <div className={classes.todo__formattedDeadline}>Deadline: {deadline? formatDate(deadline) : ""} </div>
   </> )
 }

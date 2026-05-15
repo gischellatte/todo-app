@@ -55,22 +55,6 @@ function TodoList() {
     setTimeout(() => setAppeared(""), 3500)
   }
 
-  const addCategory = (category) => {
-     fetch('http://localhost:8080/categories', {
-      method: "POST",
-      headers: {
-        "Content-type": "application/json",
-      },
-      body: JSON.stringify({ categoryName: category })
-    })
-    .then((response) => response.json())
-
-
-    .then((addedCategory) => setCategories([...categories, addedCategory]))
-    .catch((error) => console.log("Cannot a new category. "+ error))
-  };
-
-
   const addTask = (taskName, category, deadline) => {
     fetch('http://localhost:8080/todos', {
       method: "POST",
@@ -119,7 +103,7 @@ function TodoList() {
     .catch((error) => console.log("Failed to update the task. "+ error))
   };
 
-
+//Updates the category of an existing task, not the category name
   const updateTaskCategory = (taskId, newCategId) => {
 
     const taskToUpdate = todo.find(task => task.id === taskId);
@@ -155,13 +139,13 @@ function TodoList() {
       method: "DELETE"
       })
     .then((response) => response.json())
+    //prev means using the new state that react assures it is correct
     .then((archivedTask) => setTodo(prev => prev.filter(task => task.id!=id)))
     .catch((error) => console.log("Failed to archive the task. "+ error))
     }
   };
 
   const duplicateTask = (id) =>{
-    
     fetch(`http://localhost:8080/todos/${id}/duplicate`, {
       method: "POST"
     })
@@ -172,6 +156,39 @@ function TodoList() {
     .catch((error) => console.log("Failed to duplicate the task. "+ error))
   }
 
+//Add a new category
+  const addCategory = (category) => {
+     fetch('http://localhost:8080/categories', {
+      method: "POST",
+      headers: {
+        "Content-type": "application/json",
+      },
+      body: JSON.stringify({ categoryName: category })
+    })
+    .then((response) => response.json())
+
+
+    .then((addedCategory) => setCategories([...categories, addedCategory]))
+    .catch((error) => console.log("Cannot a new category. "+ error))
+  }; 
+
+//Update a category name 
+const updateCategName = (categId, changedCategName) => {
+fetch(`http://localhost:8080/categories/${categId}`, {
+  method: "PUT",
+  headers: {
+        "Content-type": "application/json",
+      }, 
+  body: JSON.stringify({
+     categoryName: changedCategName, 
+      })
+    })
+   .then((response) => response.json())
+   .then(() => {
+    setCategories(prev => prev.map(everyCateg => everyCateg.categoryId===categId? {...everyCateg, categoryName: changedCategName}: everyCateg))
+   })
+   .catch((error) => console.log("Failed to update category name. "+ error)) 
+ }    
 
   return (
    <div>
@@ -180,7 +197,7 @@ function TodoList() {
   </div>
       )}      
       <h2>Task Categories</h2>
-      <CategoryInput addCategory={addCategory}/>
+      <CategoryInput addCategory={addCategory} updateTaskCategory={updateTaskCategory} updateCategName={updateCategName}/>
 
       <h2>Tasks</h2>
       <TaskInput addTask={addTask} categories={categories}/>
