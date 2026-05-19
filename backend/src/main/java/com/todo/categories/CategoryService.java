@@ -32,7 +32,7 @@ public class CategoryService {
         return this.categoryRepository.findAll();
     }
 
-    @Transactional //put @Transactional so if the category gets deleted -> the entire tasks are also deleted
+    @Transactional
     public boolean deleteByCategory(Integer id) {
         if(!categoryRepository.existsById(id)){
             return false;
