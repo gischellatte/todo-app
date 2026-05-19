@@ -49,8 +49,8 @@ function CategoryInput({addCategory, updateCategName}) {
       <button onClick = {handleAddCategory}>Add Category</button>
   
     </form>
-    <div>
-       <button onClick={()=>setIsOpen(true)}>Manage categories</button>
+    <div className={classes.form__manageCateg}>
+       <button className={classes.button__manageCateg} onClick={()=>setIsOpen(true)}>Manage categories</button>
         {isOpen && (
          <>
            <h3>All categories</h3>
@@ -95,8 +95,7 @@ function CategoryInput({addCategory, updateCategName}) {
                           delete copy [eachCategory.categoryId]; 
                           return copy;
                         })  
-                      }}
-                   >
+                      }}>
                         Save
                       </button>
 
@@ -109,7 +108,7 @@ function CategoryInput({addCategory, updateCategName}) {
                     </div>
                   ) : (
                     <div>
-                      <span>{eachCategory.categoryName}</span>
+                      <span>{eachCategory.categoryName}</span> 
                       <button onClick={()=>{
                         setEditingId(eachCategory.categoryId);
                         /*
@@ -119,6 +118,7 @@ function CategoryInput({addCategory, updateCategName}) {
                         Updating [Key]: value pair
                         */
                         setTempName((prev) => ({...prev, [eachCategory.categoryId]:eachCategory.categoryName}));
+                        
                       }}>Edit</button>
                     </div>
                   )}
