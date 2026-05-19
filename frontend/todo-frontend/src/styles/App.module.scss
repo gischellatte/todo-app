@@ -4,6 +4,14 @@ body {
    background: #e2ebe0;
 }
 
+.form__manageCateg{
+  text-align: center;
+
+ .button__manageCateg {
+    margin-top: 2%;
+  }
+}
+
 @mixin flex-row(){
   display: flex;
   flex-direction: row;
