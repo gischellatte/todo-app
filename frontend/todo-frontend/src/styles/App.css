@@ -1,3 +1,9 @@
+.form__manageCateg {
+  text-align: center;
+}
+.form__manageCateg .button__manageCateg {
+  margin-top: 2%;
+}
 
   #root{
     width: 100%;
