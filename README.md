@@ -53,6 +53,9 @@ Frontend:
 - Archive a task
 - List down all current and archived tasks
 - datepicker feature for easier date selection.
+- Manage task categories:
+  - Update categories
+  - Delete categories permanently
 
  Backend:
  - Add a new task, incuding:
@@ -61,9 +64,9 @@ Frontend:
 - Update existing tasks
 - Archive a task
 - Remove a task permanently
-- Manage task categories:
-- Update categories
-- Delete categories permanently
+- Manage task categories via UI:
+  - Update categories
+  - Delete categories permanently
 
 **Known issues**
 - The app had 2 separate buttons to update category and task. This could have been merged into 1 button (updated).
