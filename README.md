@@ -2,11 +2,12 @@
 
 **Demo & Snippets**
 
-<img width="608" height="633" alt="image" src="https://github.com/user-attachments/assets/d370567b-c368-4df6-b340-4f819258923d" />
+<img width="608" height="633" alt="todo-github" src="https://github.com/user-attachments/assets/d370567b-c368-4df6-b340-4f819258923d" />
 
 
 🔗 GitHub Repository:
 https://github.com/gischellatte/todo-app
+
 
 **Requirements / Purpose**
 
@@ -87,3 +88,9 @@ Frontend:
 
 **Further details, related projects, reimplementations**
 - No, but I plan to update the project based on the feedback provided by the coaches.
+
+**AWS Deployment**
+<img width="1218" alt="todo-aws" src="https://github.com/user-attachments/assets/1483e73f-8827-4073-b21c-31a88ca3ebe9" />
+
+Link: 
+https://d1mqhq1qjjor2m.cloudfront.net/
