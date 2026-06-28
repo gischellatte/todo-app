@@ -12,19 +12,14 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
 import com.todo.entity.Task;
-//JpaRepository provides standards for CRUD 
-//<class that represents the data you want to persist in your database, type of the ID field in the entity class>
+
 public interface TaskRepository extends JpaRepository<Task, Integer>{
 
-    //follow the entity name (in this case, task name)
-    Page<Task> findByTaskName(String name, Pageable pageable);
-    //The new keyword is only for instantiating an object in Java. We are deleting here, so no need to add the 'new' keyword.
-    //Distinct helps to remove duplicate
-    //Add queries (Flow: DB->Repo)
-    //Follow the Spring Data JPA naming convention
-    List <Task> findByCategoryIdAndMakeArchivedFalse(Integer categoryId); 
 
-    //for simple queries (No group by, having, etc), better use methods than @query    
+    Page<Task> findByTaskName(String name, Pageable pageable);
+    
+    List <Task> findByCategoryIdAndMakeArchivedFalse(Integer categoryId); 
+  
     List <Task> findByMakeArchivedFalse();
 
     List <Task> findByMakeArchivedTrue();
