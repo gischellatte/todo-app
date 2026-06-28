@@ -45,7 +45,7 @@ class TaskServiceTest {
 
     @Test
     public void testingGetAllTasks_categId() {
-        when(taskRepository.findByMakeArchivedFalse()).thenReturn(List.of(new Task()));//almost everything in the unit test uses when(...).thenReturn(...)
+        when(taskRepository.findByMakeArchivedFalse()).thenReturn(List.of(new Task()));
         List<Task> tasks = taskService.getAllTasks(null);
         assertNotNull(tasks);
         verify(taskRepository, times(1)).findByMakeArchivedFalse();//verifies  taskRepo calls findByMakeArchivedFalse() once
@@ -81,7 +81,7 @@ class TaskServiceTest {
     
 
     when(categoryRepository.findById(1)).thenReturn(Optional.of(mockCategory));
-    when(taskRepository.save(any(Task.class))).thenReturn(mockTask);  //save() also returns data, not just actions
+    when(taskRepository.save(any(Task.class))).thenReturn(mockTask); 
     
     taskService.createTask(postTasksDto1);
 
