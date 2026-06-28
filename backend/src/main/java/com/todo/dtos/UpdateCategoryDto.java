@@ -5,7 +5,7 @@ import jakarta.validation.constraints.NotBlank;
 public class UpdateCategoryDto {
 
 
-    @NotBlank (message = "Categoty name should not be blank.")
+    @NotBlank (message = "Category name should not be blank.")
     private String categoryName;
 
 

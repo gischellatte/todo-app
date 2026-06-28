@@ -14,11 +14,14 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
-
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 @Service
 public class TaskService {
 
+    //Declaring dependencies to fetch, save, update, or delete tasks and categories from the database
+    //These dependencies represent access handlers (injected to the service class)
     private final TaskRepository taskRepository;
     private final CategoryRepository categoryRepository;
 
@@ -28,19 +31,27 @@ public class TaskService {
     }
 
     public List<Task> getAllTasks(Integer categoryId){
-
+        //Primitive int cant do !=null
         if(categoryId != null){
             return taskRepository.findByCategoryIdAndMakeArchivedFalse(categoryId);
         }
         return taskRepository.findByMakeArchivedFalse();
     }
 
+    public Task getTaskById(Integer taskId){
+        return taskRepository.findById(taskId).orElseThrow(()->new RuntimeException("Can't find task " + taskId));
+    }
+
+    public Page<Task> getTasks(Pageable page){
+        return taskRepository.findAll(page);
+    }
+    
     public List<Task> getArchivedTasks(){
         return taskRepository.findByMakeArchivedTrue();
     }
 
     public boolean archiveTask(Integer taskId){
-
+        //Optional is a safety net in case your search returns a null. It's possible that your search returns a null. If you dont use Optional, you need to do a manual check
         Optional<Task> electiveTasks = taskRepository.findById(taskId);
         if (electiveTasks.isPresent()){
             Task task1 = electiveTasks.get();
@@ -49,11 +60,6 @@ public class TaskService {
             return true;
         }
         return false;
-    }
-
-
-    public Task getTaskById(Integer id){
-        return taskRepository.findById(id).orElse(null);
     }
 
     public Task createTask(PostTasksDto postTasksDto){

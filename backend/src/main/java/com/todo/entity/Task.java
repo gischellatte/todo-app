@@ -21,14 +21,14 @@ public class Task {
 
     @Id 
     @GeneratedValue(strategy =  GenerationType.IDENTITY)
-    @Column(name = "taskid")
+    @Column(name = "taskid")//must match the mysql
     private Integer id;
 
-    @Column (name = "task_name", nullable = false)
+    @Column (name = "task_name", nullable = false)//DB level constraint
     private String taskName;
 
-    @ManyToOne
-    @JoinColumn(name = "category_id")
+    @ManyToOne //@ManyToOne means 1 categ can have many tasks. @OneToMany means one task can have many categs, which is incorrect. Both must be connected to an object data type, not to the primitive ones like Integer or String
+    @JoinColumn(name = "category_id")//to correspond to the col title in the DB
 
     private Category category;
 

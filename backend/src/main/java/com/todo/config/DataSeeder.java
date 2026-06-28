@@ -14,6 +14,7 @@ import org.springframework.stereotype.Component;
 
 @Component
 @Profile("dev")
+//Commandlinerunner so it is automatically when springboot starts
 public class DataSeeder implements CommandLineRunner{
     
     private TaskRepository taskRepository;
@@ -26,7 +27,7 @@ public class DataSeeder implements CommandLineRunner{
 
     @Override
     public void run(String... args) throws Exception {
-
+      //if the categoryRepo is 0, add these
       if(this.categoryRepository.count() == 0){
       //Create a category object
         Category categ1 = new Category();
@@ -37,6 +38,7 @@ public class DataSeeder implements CommandLineRunner{
         System.out.println("Categories seeded.");
       }
       
+      //if the taskRepo is 0, add these
       if(this.taskRepository.count() == 0){
 
         Category uxDesignCategory = categoryRepository.findByCategoryName("UX Design").orElseThrow(()->new IllegalArgumentException("UX Design category not available"));

@@ -65,7 +65,7 @@ Frontend:
 - Update existing tasks
 - Archive a task
 - Remove a task permanently
-- Manage task categories via UI:
+- Manage task categories:
   - Update categories
   - Delete categories permanently
 

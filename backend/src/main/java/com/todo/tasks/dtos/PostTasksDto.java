@@ -10,7 +10,7 @@ public class PostTasksDto {
     @NotBlank (message = "The Task name cant be blank")
     String taskName;
 
-    @NotNull (message = "Category ID cant be blank") 
+    @NotNull (message = "Category ID cant be blank") //@NotBlank cant be applied to Integers 
     private Integer categoryId;
     private LocalDate deadline;
     private boolean makeArchived;

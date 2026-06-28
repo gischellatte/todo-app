@@ -22,6 +22,9 @@ import java.util.List;
 import org.springframework.web.server.ResponseStatusException;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 
 
 @CrossOrigin(origins = "http://localhost:5173", allowedHeaders = "*", methods = {RequestMethod.GET, RequestMethod.POST, RequestMethod.PUT, RequestMethod.DELETE})
@@ -36,12 +39,28 @@ public class TaskController {
     this.repository = repository;
  }
 //GET /todos 
+//GET /todos?category={categId}
 @GetMapping 
 public ResponseEntity<List<Task>> retrieveTask(@RequestParam(value="category", required = false) Integer categId) {
-
+//List<Task> returns all tasks in 1 response
+//Task can only return 1 task
     List<Task> tasks = taskService.getAllTasks(categId);
     return ResponseEntity.ok(tasks);
 }
+
+@GetMapping ("/{id}")
+public ResponseEntity<Task> getTaskById(@PathVariable Integer id) {
+    Task selectedTask = taskService.getTaskById(id);
+    return ResponseEntity.ok(selectedTask);
+}
+
+//todos/paginated?page=0&size=10
+@GetMapping ("/paginated")
+public ResponseEntity<Page<Task>> getTaskPages (@PageableDefault(page = 0, size = 10) Pageable pageable){
+    Page<Task> taskPage = taskService.getTasks(pageable);
+    return ResponseEntity.ok(taskPage);
+}
+
 
 @GetMapping ("/archived")
 public ResponseEntity<List<Task>> getArchivedTaks(){
@@ -49,19 +68,20 @@ public ResponseEntity<List<Task>> getArchivedTaks(){
     return ResponseEntity.ok(archivedTasks);
 }
 
+
 // POST /todos
 @PostMapping
 public ResponseEntity<Task> addTask(@Valid @RequestBody PostTasksDto postTasksDto) {
 
-        Task createdTask = taskService.createTask(postTasksDto);
-        return ResponseEntity.status(HttpStatus.CREATED).body(createdTask);
-    }
+    Task createdTask = taskService.createTask(postTasksDto);
+    return ResponseEntity.status(HttpStatus.CREATED).body(createdTask);
+}
 
 //DELETE /todos/:id
 @DeleteMapping("/{id}")
 public ResponseEntity<Task> archiveTask(@PathVariable Integer id) {
     boolean sentToArchive = taskService.archiveTask(id);
-
+    // a task is successfully archived
     if(sentToArchive){
         Task archivedTask = taskService.getTaskById(id);
         return ResponseEntity.ok(archivedTask);
@@ -71,19 +91,19 @@ public ResponseEntity<Task> archiveTask(@PathVariable Integer id) {
     }    
   }
  
-  // PUT /todos/:id
-  @PutMapping("/{id}")
+// PUT /todos/:id
+@PutMapping("/{id}")
    public ResponseEntity<Task> fullyUpdateTask(@PathVariable Integer id, @Valid @RequestBody UpdateTaskDto updateTaskDto){
     Task fullyUpdateTask = taskService.updateTask(id,  updateTaskDto);
     return ResponseEntity.ok(fullyUpdateTask);
-   }
+}
 
-   // Post /id/duplicate - Duplicate
+// Post /id/duplicate - Duplicate
     @PostMapping("/{id}/duplicate")
-    public ResponseEntity<Task> duplicateTask(@PathVariable Integer id) {
+public ResponseEntity<Task> duplicateTask(@PathVariable Integer id) {
 
-        Task copiedTask = taskService.duplicateTask(id);
-        return ResponseEntity.status(HttpStatus.CREATED).body(copiedTask);
+    Task copiedTask = taskService.duplicateTask(id);
+    return ResponseEntity.status(HttpStatus.CREATED).body(copiedTask);
         
     } 
 }
