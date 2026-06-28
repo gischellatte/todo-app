@@ -1,7 +1,5 @@
 package com.todo.tasks;
-//import com.todo.Task; from the related entity
 
-//import org.springframework.scheduling.config.Task;
 import java.util.List;
 import java.util.Optional;
 
