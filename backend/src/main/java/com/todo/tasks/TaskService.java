@@ -20,8 +20,7 @@ import org.springframework.data.domain.Pageable;
 @Service
 public class TaskService {
 
-    //Declaring dependencies to fetch, save, update, or delete tasks and categories from the database
-    //These dependencies represent access handlers (injected to the service class)
+    
     private final TaskRepository taskRepository;
     private final CategoryRepository categoryRepository;
 
@@ -31,7 +30,7 @@ public class TaskService {
     }
 
     public List<Task> getAllTasks(Integer categoryId){
-        //Primitive int cant do !=null
+        
         if(categoryId != null){
             return taskRepository.findByCategoryIdAndMakeArchivedFalse(categoryId);
         }
@@ -51,7 +50,7 @@ public class TaskService {
     }
 
     public boolean archiveTask(Integer taskId){
-        //Optional is a safety net in case your search returns a null. It's possible that your search returns a null. If you dont use Optional, you need to do a manual check
+       
         Optional<Task> electiveTasks = taskRepository.findById(taskId);
         if (electiveTasks.isPresent()){
             Task task1 = electiveTasks.get();
