@@ -90,7 +90,6 @@ Frontend:
 - No, but I plan to update the project based on the feedback provided by the coaches.
 
 **AWS Deployment**
-https://d1mqhq1qjjor2m.cloudfront.net/
 
 Link: 
-https://d1mqhq1qjjor2m.cloudfront.net/
+- https://d1mqhq1qjjor2m.cloudfront.net/
