@@ -7,8 +7,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
 
-//when we start out app, it looks for a controller. If it finds a controller, it creates an instance of the controller and maps all the routes
-@RestController //a must have in a controller
+
+@RestController
 @RequestMapping ("/")
 public class appController {
 
