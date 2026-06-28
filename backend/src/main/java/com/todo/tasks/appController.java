@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 public class appController {
 
     @GetMapping()
-    //controllers have methods
     public String mainPath() {
         return "Welcome to the app";
     }
