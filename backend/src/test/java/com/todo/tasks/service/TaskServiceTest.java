@@ -30,16 +30,16 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @ExtendWith(MockitoExtension.class) 
-//class name must ends with a 'Test', otherwise Maven wont pick it up
+
 class TaskServiceTest {
 
-    @Mock //@Mock - creates fake objects from dependencies. Mockito makes a “fake” version ofTaskRepository (false dependency)
+    @Mock 
     private TaskRepository taskRepository;
     @Mock
     private CategoryRepository categoryRepository;
 
 
-    @InjectMocks //@InjectMocks - create the object you want to test, then everything @Mockwill be automatically inserted
+    @InjectMocks 
     private TaskService taskService;
 
 
@@ -82,7 +82,7 @@ class TaskServiceTest {
 
     when(categoryRepository.findById(1)).thenReturn(Optional.of(mockCategory));
     when(taskRepository.save(any(Task.class))).thenReturn(mockTask);  //save() also returns data, not just actions
-    //most modern repos expects a returned object (if your service method is not a void method) - chatGPT
+    
     taskService.createTask(postTasksDto1);
 
     verify(taskRepository, times(1)).save(any(Task.class)); 
