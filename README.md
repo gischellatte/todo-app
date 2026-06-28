@@ -90,7 +90,7 @@ Frontend:
 - No, but I plan to update the project based on the feedback provided by the coaches.
 
 **AWS Deployment**
-<img width="1218" alt="todo-aws" src="https://github.com/user-attachments/assets/1483e73f-8827-4073-b21c-31a88ca3ebe9" />
+https://d1mqhq1qjjor2m.cloudfront.net/
 
 Link: 
 https://d1mqhq1qjjor2m.cloudfront.net/
